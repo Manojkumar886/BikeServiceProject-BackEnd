@@ -17,13 +17,14 @@ import java.util.Date;
 @Entity
 public class Bikedetails
 {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int cusId;
     private String cusBikeno;
     private String cusName;
     private long cusContactno;
     private String cusEmail;
     @JsonFormat(pattern = "yyyy-mm-dd")
-    private Date PurchaseofDate;
+    private Date DateofPurchase;
 
 }

@@ -1,9 +1,9 @@
 package BikeModule.BikeServiceProject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class Controller
@@ -16,5 +16,29 @@ public class Controller
     public String makecreate(@RequestBody Bikedetails bikes)
     {
         return service.create(bikes).getCusName()+"has been added in database successfully";
+    }
+
+    @PutMapping("/update")
+    public String updating(@RequestBody Bikedetails bikes)
+    {
+        Bikedetails temp=service.create(bikes);
+        return temp.getCusName()+" has been updated successfully";
+    }
+    @DeleteMapping("/Delete/{key}")
+    public String deleting(@PathVariable("key")int key)
+    {
+        return  service.erasing(key);
+    }
+
+    @GetMapping("/sample")
+    public void Sample()
+    {
+        System.out.println("Welcome to BackEnd");
+    }
+
+    @GetMapping("/")
+    public List<Bikedetails> ListAll()
+    {
+        return service.makeFetchAll();
     }
 }
