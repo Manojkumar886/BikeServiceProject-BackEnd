@@ -27,5 +27,10 @@ public class BikeDetailsService
     {
         return (List<Bikedetails>) repo.findAll();
     }
+    //FineAnyone value'
+    public Bikedetails Gettingone(int cusid)
+    {
+        return  repo.findById(cusid).orElse(new Bikedetails());
+    }
 
 }

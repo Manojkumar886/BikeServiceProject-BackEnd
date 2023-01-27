@@ -41,4 +41,9 @@ public class Controller
     {
         return service.makeFetchAll();
     }
+    @GetMapping("/Listone/{id}")
+    public Bikedetails listone(@PathVariable("id")int id)
+    {
+        return service.Gettingone(id);
+    }
 }
