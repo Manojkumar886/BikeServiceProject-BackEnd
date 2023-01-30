@@ -11,6 +11,9 @@ public class Controller
     @Autowired
     BikeDetailsService service;
 
+    @Autowired
+    ServiceDetailsService Sservice;
+
     //---http://localhost:8080/newbikedetails
     @PostMapping("/newbikedetails")
     public String makecreate(@RequestBody Bikedetails bikes)
@@ -45,5 +48,25 @@ public class Controller
     public Bikedetails listone(@PathVariable("id")int id)
     {
         return service.Gettingone(id);
+    }
+
+    @PostMapping("/createservice")
+    public ServiceDetails servicecreate(@RequestBody ServiceDetails serv)
+    {
+        Bikedetails temp=service.Gettingone(serv.getBikeDetails1().getCusId());
+        if(serv.getBikeTypeofservice()=="free")
+        {
+            int total=serv.getBikeNewproductcost()+(serv.getBikeNewproductcost()*18/100);//600+80=680
+            serv.setBikeFinalpay(total);
+        }
+        else {
+            int total=serv.getBikeLabourcharge()+serv.getBikeNewproductcost();//800+900=1700
+            total+=total*18/100;
+            serv.setBikeFinalpay(total);
+        }
+        temp.getMyservicedetails().add(serv);
+        serv.setBikeDetails1(temp);
+        Sservice.newservice(serv);
+        return serv;
     }
 }

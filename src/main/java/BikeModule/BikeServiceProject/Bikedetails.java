@@ -21,12 +21,12 @@ public class Bikedetails
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int cusId;
-    private String cusbikeno;
+    private String cusBikeno;
     private String cusName;
     private long cusContactno;
     private String cusEmail;
     @JsonFormat(pattern = "yyyy-mm-dd")
-    private Date DateofPurchase;
+    private Date Dateofpurchase;
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @Nullable
     @JsonBackReference

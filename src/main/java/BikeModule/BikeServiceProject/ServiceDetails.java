@@ -15,7 +15,7 @@ import java.util.Date;
 @Entity
 public class ServiceDetails
 {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bikeJobcardno;
     private String[] bikeIssues;
     @JsonFormat(pattern = "yyyy-mm-dd")
@@ -26,11 +26,11 @@ public class ServiceDetails
     private int bikeEstimateCharge;
     private int bikeNewproductcost;
     private int bikeLabourcharge;
+    @Column(name = "bikeServicetotalamount")
     private int bikeFinalpay;
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "BikeCustomerID")
     @Nullable
-
-    private  Bikedetails bikedetails1;
+    private  Bikedetails bikeDetails1;
 
 }
