@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class Controller
 {
     @Autowired
@@ -18,7 +20,7 @@ public class Controller
     @PostMapping("/newbikedetails")
     public String makecreate(@RequestBody Bikedetails bikes)
     {
-        return service.create(bikes).getCusName()+"has been added in database successfully";
+        return service.create(bikes).getCusName()+"has been added your bikedetails  successfully";
     }
 
     @PutMapping("/update")
@@ -27,11 +29,20 @@ public class Controller
         Bikedetails temp=service.create(bikes);
         return temp.getCusName()+" has been updated successfully";
     }
+
+    @PutMapping("/updateservice")
+    public String updateservice(@RequestBody ServiceDetails service)
+    {
+        ServiceDetails temp=Sservice.newservice(service);
+        return  temp.getBikeDetails1()+"has been service details updated successfully";
+    }
+
     @DeleteMapping("/Delete/{key}")
     public String deleting(@PathVariable("key")int key)
     {
         return  service.erasing(key);
     }
+
 
     @GetMapping("/sample")
     public void Sample()
@@ -48,6 +59,11 @@ public class Controller
     public Bikedetails listone(@PathVariable("id")int id)
     {
         return service.Gettingone(id);
+    }
+    @GetMapping("/onelist/{id}")
+    public Optional<ServiceDetails> listingone(@PathVariable("id") int id)
+    {
+        return  Sservice.GettingExactInService(id);
     }
 
     @PostMapping("/createservice")
@@ -69,4 +85,28 @@ public class Controller
         Sservice.newservice(serv);
         return serv;
     }
+
+    @GetMapping("/getAll/{cusid}")
+    public List<ServiceDetails> ListAllServicedetails(@PathVariable("cusid") int cusid)
+    {
+        Bikedetails temp=service.Gettingone(cusid);
+        return  Sservice.GetAllServiceDetails(temp);
+
+    }
+
+    @GetMapping("/getType/{type}")
+    public  List<ServiceDetails> ListBasedOnType(@PathVariable("type")String type)
+    {
+        return Sservice.GetTypeofService(type);
+    }
+
+    @GetMapping("/datem/{date1}/{date2}")
+    public List<ServiceDetails> gettingbetweenDates(@PathVariable("date1")String date1,@PathVariable("date2")String date2)
+    {
+        return Sservice.ImpleDates(date1,date2);
+    }
+
+
+
+
 }

@@ -1,12 +1,14 @@
 package BikeModule.BikeServiceProject;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
@@ -28,9 +30,9 @@ public class ServiceDetails
     private int bikeLabourcharge;
     @Column(name = "bikeServicetotalamount")
     private int bikeFinalpay;
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "BikeCustomerID")
-    @Nullable
+    @JsonIgnoreProperties(value = {"service_details","hibernateLazyInitializer"})
     private  Bikedetails bikeDetails1;
 
 }
