@@ -1,8 +1,6 @@
 package BikeModule.BikeServiceProject;
 
-import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -22,5 +20,6 @@ public interface ServiceDetailsRepositary extends JpaRepository<ServiceDetails,I
     @Query(value = "select * from service_details where bike_dateofservice between :startDate and :endDate",nativeQuery = true)
     public List<ServiceDetails> findAllBybikeDateofservice(String startDate,String endDate);
 
+    
 
 }
