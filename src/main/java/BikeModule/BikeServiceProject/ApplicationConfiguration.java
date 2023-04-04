@@ -1,5 +1,4 @@
 package BikeModule.BikeServiceProject;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,39 +10,43 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.Collection;
-import java.util.stream.Stream;
-
 @Configuration
 @EnableWebSecurity
 public class ApplicationConfiguration
 {
     @Bean
-    public PasswordEncoder encoder() {
+    public PasswordEncoder encoder()
+    {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
-    public InMemoryUserDetailsManager userDetailsservice() {
-        UserDetails myUser1=User.withUsername("manoj").password(encoder().encode("Maddysins")).roles("USER")
-                .build();
-        UserDetails myUser2=User.withUsername("annamalai").password(encoder().encode("annamalaisins")).roles("USER")
-                .build();
+    public InMemoryUserDetailsManager uservalues()
+    {
+        UserDetails user1=User.withUsername("Manoj")
+                .password(encoder().encode("Manojkumar123"))
+                .roles("USER").build();
+        UserDetails user2=User.withUsername("Thivin")
+                .password(encoder().encode("Thivinkanth123"))
+                .roles("USER").build();
 
-        Collection<UserDetails> myusers= Stream.of(myUser1,myUser2).toList();
-
-        return new InMemoryUserDetailsManager(myusers);
+        return new InMemoryUserDetailsManager(user1,user2);
     }
 
-
-
     @Bean
-    public SecurityFilterChain prabakaran(HttpSecurity hp) throws Exception {
-        hp.authorizeHttpRequests().requestMatchers("/api/*").authenticated();
+    public SecurityFilterChain safety(HttpSecurity hp) throws Exception
+    {
+        hp
+                .authorizeRequests()
+                .antMatchers("/mybikeproject")
+                .authenticated();
         hp.csrf().disable();
-        hp.httpBasic();
+        hp.cors();
         hp.formLogin();
-
+        hp.httpBasic();
 
         return hp.build();
+
     }
+
 }
